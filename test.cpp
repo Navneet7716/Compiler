@@ -1,0 +1,1 @@
+#include<iostream> using namespace std; int main() {  printf("GeeksQuiz"); return 0;}
