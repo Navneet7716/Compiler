@@ -35,7 +35,7 @@ function App() {
   const [result, setResult] = useState("Submit Code to See Result");
   const [lang, setlang] = useState("cpp");
   const [loading, setLoading] = useState(false);
-  const [input, setinput] = useState(null);
+  const [input, setinput] = useState("");
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
