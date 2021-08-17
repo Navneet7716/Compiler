@@ -7,10 +7,12 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Container from "@material-ui/core/Container";
-import TextField from "@material-ui/core/TextField";
 import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 import Button from "@material-ui/core/Button";
 import LinearProgress from "@material-ui/core/LinearProgress";
+import Paper from "@material-ui/core/Paper";
+import { Switch } from "@material-ui/core";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
 
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -36,6 +38,7 @@ function App() {
   const [lang, setlang] = useState("cpp");
   const [loading, setLoading] = useState(false);
   const [input, setinput] = useState("");
+  const [darkmode, setDarkMode] = useState(false);
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
@@ -63,7 +66,6 @@ function App() {
     axios
       .post(`${env.url}v1/submit`, mystate)
       .then((res) => {
-        console.log(res.data);
         setLoading(false);
         const data = res.data;
         if (data.err) {
@@ -75,7 +77,6 @@ function App() {
       })
       .catch((err) => {
         setLoading(false);
-        console.log(err);
       });
   };
 
@@ -100,6 +101,10 @@ function App() {
     setCode(defaultCode.defaultCode[langu]);
   };
 
+  const handleChange = (event) => {
+    setDarkMode(!darkmode);
+  };
+
   const options = {
     selectOnLineNumbers: true,
     renderIndentGuides: true,
@@ -117,21 +122,22 @@ function App() {
 
   return (
     <Container>
-      {loading ? (
-        <LinearProgress />
-      ) : (
-        <></>
-        // <button className="" onClick={onSubmitHandler}>
-        //   Submit Code
-        // </button>
-      )}
+      {loading ? <LinearProgress /> : <></>}
 
-      <h1 className="">Custom Code</h1>
+      <h1
+        style={{
+          textAlign: "center",
+        }}
+        className=""
+      >
+        Welcome To Nav Code.
+      </h1>
+
       <div
         className=""
         style={{
           display: "flex",
-          // flexWrap: "wrap",
+          flexWrap: "wrap",
           justifyContent: "space-between",
           flexDirection: "row",
         }}
@@ -157,15 +163,29 @@ function App() {
                 <MenuItem value={"python"}>Python3</MenuItem>
               </Select>
             </FormControl>
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={darkmode}
+                  onChange={handleChange}
+                  color="primary"
+                  name="checkedB"
+                  inputProps={{ "aria-label": "primary checkbox" }}
+                />
+              }
+              style={{
+                marginLeft: "500px",
+                textAlign: "center",
+              }}
+              label="Dark Mode 🌚"
+            />
 
-            {/* 
-            <select id="lang" onChange={(e) => onLangSelectHandler(e)}>
-              <option value="cpp">C++</option>
-              <option value="c">C</option>
-              <option value="python">Python</option>
-            </select> */}
-
-            <div type="text" id="code" className="card shadow">
+            <Paper
+              elevation={3}
+              style={{
+                padding: "5px",
+              }}
+            >
               <MonacoEditor
                 width="900"
                 height="500"
@@ -174,7 +194,7 @@ function App() {
                     ? localStorage.getItem("lang")
                     : lang
                 }
-                theme="vs-dark"
+                theme={darkmode ? "vs-dark" : "vs-light"}
                 value={
                   localStorage.getItem("code") != null
                     ? JSON.parse(localStorage.getItem("code"))
@@ -184,33 +204,52 @@ function App() {
                 onChange={onCodeChangeHandler}
                 editorDidMount={editorDidMount}
               />
+            </Paper>
+          </div>
+
+          <div
+            style={{
+              display: "flex",
+            }}
+          >
+            <div>
+              {loading ? (
+                <CircularProgress />
+              ) : (
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={onSubmitHandler}
+                  style={{
+                    margin: "10px",
+                  }}
+                >
+                  Submit
+                </Button>
+                // <button className="" onClick={onSubmitHandler}>
+                //   Submit Code
+                // </button>
+              )}
+            </div>
+
+            <div
+              style={{
+                marginLeft: "500px",
+              }}
+            >
+              <div className="">
+                <p className="lead d-block my-0">Provide Input</p>
+              </div>
+              <div>
+                <textarea
+                  type="text"
+                  id="input"
+                  value={input}
+                  onChange={onInputChangeHandler}
+                ></textarea>
+              </div>
             </div>
           </div>
-          <div className="">
-            <p className="lead d-block my-0">Provide Input</p>
-
-            <textarea
-              type="text"
-              id="input"
-              value={input}
-              onChange={onInputChangeHandler}
-            ></textarea>
-          </div>
-
-          {loading ? (
-            <CircularProgress />
-          ) : (
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={onSubmitHandler}
-            >
-              Submit
-            </Button>
-            // <button className="" onClick={onSubmitHandler}>
-            //   Submit Code
-            // </button>
-          )}
         </div>
         <div className="">
           <h1>Output:</h1>
