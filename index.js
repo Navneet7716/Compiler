@@ -11,7 +11,7 @@ app.use(express.static("./client/build"));
 
 app.use("/api/v1", Submitrouter);
 
-const port = 5000;
+const port = process.env.PORT || 5000;
 app.listen(port, () => {
   console.log(`Server started at port ${port}`);
 });
