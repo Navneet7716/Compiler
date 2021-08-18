@@ -134,16 +134,16 @@ function App() {
       </h1>
 
       <div
-        className=""
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "space-between",
-          flexDirection: "row",
-        }}
+        className="row"
+        // style={{
+        //   display: "flex",
+        //   flexWrap: "wrap",
+        //   justifyContent: "space-between",
+        //   flexDirection: "row",
+        // }}
       >
-        <div className="row">
-          <div className="col-12 mt-5">
+        <div className="column left">
+          <div className="">
             <FormControl variant="outlined" className={classes.formControl}>
               <InputLabel id="demo-simple-select-outlined-label">
                 Language
@@ -187,7 +187,7 @@ function App() {
               }}
             >
               <MonacoEditor
-                width="900"
+                width="830"
                 height="500"
                 language={
                   localStorage.getItem("lang") != null
@@ -231,31 +231,13 @@ function App() {
                 // </button>
               )}
             </div>
-
-            <div
-              style={{
-                marginLeft: "500px",
-              }}
-            >
-              <div className="">
-                <p className="lead d-block my-0">Provide Input</p>
-              </div>
-              <div>
-                <textarea
-                  type="text"
-                  id="input"
-                  value={input}
-                  onChange={onInputChangeHandler}
-                ></textarea>
-              </div>
-            </div>
           </div>
         </div>
-        <div className="">
+        <div className="column right">
           <h1>Output:</h1>
           <div className="">
             {/* <TextField
-              fullWidth
+              fullwidth
               id="outlined-basic"
               variant="outlined"
               value={result}
@@ -272,9 +254,30 @@ function App() {
               disabled={true}
               aria-label="minimum height"
               minRows={9}
-              fullWidth
+              fullwidth
               placeholder="Minimum 3 rows"
             />
+          </div>
+          <div
+          // style={{
+          //   marginLeft: "500px",
+          // }}
+          >
+            <div className="row">
+              <h3 className="">Provide Input</h3>
+            </div>
+            <div>
+              <textarea
+                style={{
+                  width: "300px",
+                  height: "200px",
+                }}
+                type="text"
+                id="input"
+                value={input}
+                onChange={onInputChangeHandler}
+              ></textarea>
+            </div>
           </div>
         </div>
       </div>
