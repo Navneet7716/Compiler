@@ -121,122 +121,145 @@ function App() {
   const classes = useStyles();
 
   return (
-    <Container>
-      {loading ? <LinearProgress /> : <></>}
+    <div className={darkmode ? "fullBodyDark" : "fullBody"}>
+      <Container>
+        {loading ? <LinearProgress /> : <></>}
 
-      <h1
-        style={{
-          textAlign: "center",
-        }}
-        className=""
-      >
-        Welcome To Nav Code.
-      </h1>
+        <h1
+          style={{
+            textAlign: "center",
+          }}
+          className=""
+        >
+          Welcome To Nav Code.
+        </h1>
 
-      <div
-        className="row"
-        // style={{
-        //   display: "flex",
-        //   flexWrap: "wrap",
-        //   justifyContent: "space-between",
-        //   flexDirection: "row",
-        // }}
-      >
-        <div className="column left">
-          <div className="">
-            <FormControl variant="outlined" className={classes.formControl}>
-              <InputLabel id="demo-simple-select-outlined-label">
-                Language
-              </InputLabel>
-              <Select
-                labelId="demo-simple-select-outlined-label"
-                id="demo-simple-select-outlined"
-                value={lang}
-                onChange={(e) => onLangSelectHandler(e)}
-                label="Language"
+        <div
+          className="row"
+          // style={{
+          //   display: "flex",
+          //   flexWrap: "wrap",
+          //   justifyContent: "space-between",
+          //   flexDirection: "row",
+          // }}
+        >
+          <div className="column left">
+            <div className="">
+              <FormControl
+                variant="filled"
+                className={classes.formControl}
+                style={{ color: darkmode ? "white" : "black" }}
               >
-                <MenuItem value="">
-                  <em>None</em>
-                </MenuItem>
-                <MenuItem value={"cpp"}>C++</MenuItem>
-                <MenuItem value={"c"}>C</MenuItem>
-                <MenuItem value={"python"}>Python3</MenuItem>
-              </Select>
-            </FormControl>
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={darkmode}
-                  onChange={handleChange}
-                  color="primary"
-                  name="checkedB"
-                  inputProps={{ "aria-label": "primary checkbox" }}
-                />
-              }
-              style={{
-                marginLeft: "500px",
-                textAlign: "center",
-              }}
-              label="Dark Mode 🌚"
-            />
+                <InputLabel
+                  style={{ color: darkmode ? "white" : "black" }}
+                  id="demo-simple-select-outlined-label"
+                >
+                  Language
+                </InputLabel>
+                <Select
+                  labelId="demo-simple-select-outlined-label"
+                  id="demo-simple-select-outlined"
+                  value={lang}
+                  style={{ color: darkmode ? "white" : "black" }}
+                  onChange={(e) => onLangSelectHandler(e)}
+                  label="Language"
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>
+                  <MenuItem value={"cpp"}>C++</MenuItem>
+                  <MenuItem value={"c"}>C</MenuItem>
+                  <MenuItem value={"python"}>Python3</MenuItem>
+                </Select>
+              </FormControl>
+              <FormControlLabel
+                control={
+                  <Switch
+                    style={{
+                      color: "white",
+                    }}
+                    checked={darkmode}
+                    onChange={handleChange}
+                    color="primary"
+                    name="checkedB"
+                    inputProps={{ "aria-label": "primary checkbox" }}
+                  />
+                }
+                style={{
+                  marginLeft: "500px",
+                  textAlign: "center",
+                }}
+                label={darkmode ? "Dark Mode 🌚" : "Light Mode 🌞"}
+              />
 
-            <Paper
-              elevation={3}
+              <Paper
+                elevation={3}
+                style={{
+                  padding: "5px",
+                }}
+              >
+                <MonacoEditor
+                  width="830"
+                  height="500"
+                  language={
+                    localStorage.getItem("lang") != null
+                      ? localStorage.getItem("lang")
+                      : lang
+                  }
+                  theme={darkmode ? "vs-dark" : "vs-light"}
+                  value={
+                    localStorage.getItem("code") != null
+                      ? JSON.parse(localStorage.getItem("code"))
+                      : myCode
+                  }
+                  options={options}
+                  onChange={onCodeChangeHandler}
+                  editorDidMount={editorDidMount}
+                />
+              </Paper>
+            </div>
+
+            <div
               style={{
-                padding: "5px",
+                display: "flex",
               }}
             >
-              <MonacoEditor
-                width="830"
-                height="500"
-                language={
-                  localStorage.getItem("lang") != null
-                    ? localStorage.getItem("lang")
-                    : lang
-                }
-                theme={darkmode ? "vs-dark" : "vs-light"}
-                value={
-                  localStorage.getItem("code") != null
-                    ? JSON.parse(localStorage.getItem("code"))
-                    : myCode
-                }
-                options={options}
-                onChange={onCodeChangeHandler}
-                editorDidMount={editorDidMount}
-              />
-            </Paper>
-          </div>
-
-          <div
-            style={{
-              display: "flex",
-            }}
-          >
-            <div>
-              {loading ? (
-                <CircularProgress />
-              ) : (
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={onSubmitHandler}
-                  style={{
-                    margin: "10px",
-                  }}
-                >
-                  Submit
-                </Button>
-                // <button className="" onClick={onSubmitHandler}>
-                //   Submit Code
-                // </button>
-              )}
+              <div>
+                {loading ? (
+                  <CircularProgress />
+                ) : (
+                  <>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={onSubmitHandler}
+                      style={{
+                        margin: "10px",
+                      }}
+                    >
+                      Run
+                    </Button>
+                    <p>
+                      if the submission doesn't works please try{" "}
+                      <Button
+                        color="secondary"
+                        href="http://nav-compiler.herokuapp.com/"
+                      >
+                        here
+                      </Button>
+                    </p>
+                  </>
+                  // <button className="" onClick={onSubmitHandler}>
+                  //   Submit Code
+                  // </button>
+                )}
+              </div>
             </div>
           </div>
-        </div>
-        <div className="column right">
-          <h1>Output:</h1>
-          <div className="">
-            {/* <TextField
+          <div className="column right">
+            <h1>Output:</h1>
+            <div className="">
+              {/* <TextField
               fullwidth
               id="outlined-basic"
               variant="outlined"
@@ -246,28 +269,40 @@ function App() {
                 height: "500px",
               }}
             /> */}
-            <TextareaAutosize
-              style={{
-                width: "300px",
-              }}
-              value={result}
-              disabled={true}
-              aria-label="minimum height"
-              minRows={9}
-              fullwidth
-              placeholder="Minimum 3 rows"
-            />
-          </div>
-          <div
-          // style={{
-          //   marginLeft: "500px",
-          // }}
-          >
-            <div className="row">
-              <h3 className="">Provide Input</h3>
+              <TextareaAutosize
+                style={{
+                  width: "300px",
+                  height: "30vh",
+                }}
+                value={result}
+                disabled={true}
+                aria-label="minimum height"
+                minRows={9}
+                fullwidth
+                placeholder="Minimum 3 rows"
+              />
             </div>
-            <div>
-              <textarea
+            <div
+            // style={{
+            //   marginLeft: "500px",
+            // }}
+            >
+              <div className="row">
+                <h3 className="">Provide Input</h3>
+              </div>
+              <div>
+                <textarea
+                  placeholder="Give Input"
+                  className="ui-autocomplete-input"
+                  style={{
+                    width: "300px",
+                    height: "60vh",
+                  }}
+                  type="text"
+                  value={input}
+                  onChange={onInputChangeHandler}
+                ></textarea>
+                {/* <textarea
                 style={{
                   width: "300px",
                   height: "200px",
@@ -276,12 +311,13 @@ function App() {
                 id="input"
                 value={input}
                 onChange={onInputChangeHandler}
-              ></textarea>
+              ></textarea> */}
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </Container>
+      </Container>
+    </div>
   );
 }
 
