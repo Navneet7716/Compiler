@@ -21,7 +21,7 @@ exports.CplusplusRunner = async (code, input) => {
         const filePath = path.join(__dirname, "../b.cpp");
         console.log("FILE PATH >> " + filePath);
 
-        exec("g++ " + filePath, (err, stdout, stderr) => {
+        exec("sudo g++ " + filePath, (err, stdout, stderr) => {
           if (err) {
             console.error(`exec error: ${err}`);
             resolve({
@@ -32,7 +32,7 @@ exports.CplusplusRunner = async (code, input) => {
           }
 
           console.log("SUCCESSFULLY COMPILED");
-          exec("./a.out < " + "inputb.txt", (err, stdout, stderr) => {
+          exec("sudo ./a.out < " + "inputb.txt", (err, stdout, stderr) => {
             if (err) {
               console.log("ERROR " + err);
               resolve({
@@ -50,8 +50,8 @@ exports.CplusplusRunner = async (code, input) => {
           });
         });
       })
-      .catch(() => {
-        console.log("ERROR SAVE FILE" + saveFileRes);
+      .catch((e) => {
+        console.log("ERROR SAVE FILE " + e);
         const err = {
           err: true,
           output: "Internal Server Error!",
@@ -60,7 +60,6 @@ exports.CplusplusRunner = async (code, input) => {
       });
   });
 };
-
 exports.CRunner = async (code, input) => {
   return new Promise((resolve, reject) => {
     const fileName = "a.c";
@@ -166,7 +165,7 @@ exports.PythonRunner = async (code, input) => {
 const saveFile = async (name, data) => {
   return new Promise((resolve, reject) => {
     console.log("SAVING FILES");
-    fs.writeFile(name, data, function (err) {
+    fs.writeFile(name, data || null, function (err) {
       if (err) {
         console.log(err);
         reject();

@@ -14,13 +14,14 @@ exports.HandleSubmit = async (req, res) => {
           console.log("SUCCESSFULL PROMISE " + data);
           console.log("SENDING " + data);
           res.json(data);
-          deleteController.deleteFile(path.join(__dirname, "../../input.txt"));
-          deleteController.deleteFile(path.join(__dirname, "../../test.cpp"));
+          deleteController.deleteFile(path.join(__dirname, "../inputb.txt"));
+          deleteController.deleteFile(path.join(__dirname, "../b.cpp"));
+          deleteController.deleteFile(path.join(__dirname, "../a.exe"));
         })
         .catch((err) => {
           console.log("ERROR PROMISE " + err);
-          deleteController.deleteFile(path.join(__dirname, "../../input.txt"));
-          deleteController.deleteFile(path.join(__dirname, "../../test.cpp"));
+          deleteController.deleteFile(path.join(__dirname, "../inputb.txt"));
+          deleteController.deleteFile(path.join(__dirname, "../b.cpp"));
         });
     case "c":
       return compiler
@@ -29,15 +30,15 @@ exports.HandleSubmit = async (req, res) => {
           console.log("SUCCESSFULL PROMISE " + data);
           console.log("SENDING " + data);
           res.json(data);
-          deleteController.deleteFile(path.join(__dirname, "../../input.txt"));
-          deleteController.deleteFile(path.join(__dirname, "../../test.c"));
-          deleteController.deleteFile(path.join(__dirname, "../../a.exe"));
+          deleteController.deleteFile(path.join(__dirname, "../inputa.txt"));
+          deleteController.deleteFile(path.join(__dirname, "../a.c"));
+          deleteController.deleteFile(path.join(__dirname, "../a.exe"));
         })
         .catch((err) => {
           console.log("ERROR PROMISE " + err);
-          deleteController.deleteFile(path.join(__dirname, "../../input.txt"));
-          deleteController.deleteFile(path.join(__dirname, "../../test.c"));
-          deleteController.deleteFile(path.join(__dirname, "../../a.exe"));
+          deleteController.deleteFile(path.join(__dirname, "../inputa.txt"));
+          deleteController.deleteFile(path.join(__dirname, "../a.c"));
+          deleteController.deleteFile(path.join(__dirname, "../a.exe"));
         });
 
     case "python":
@@ -47,15 +48,13 @@ exports.HandleSubmit = async (req, res) => {
           console.log("SUCCESSFULL PROMISE " + data);
           console.log("SENDING " + data);
           res.json(data);
-          deleteController.deleteFile(path.join(__dirname, "../../input.txt"));
-          deleteController.deleteFile(path.join(__dirname, "../../test.py"));
-          deleteController.deleteFile(path.join(__dirname, "../../a.exe"));
+          deleteController.deleteFile(path.join(__dirname, "../inputc.txt"));
+          deleteController.deleteFile(path.join(__dirname, "../c.py"));
         })
         .catch((err) => {
           console.log("ERROR PROMISE " + err);
-          deleteController.deleteFile(path.join(__dirname, "../../input.txt"));
-          deleteController.deleteFile(path.join(__dirname, "../../test.py"));
-          deleteController.deleteFile(path.join(__dirname, "../../a.exe"));
+          deleteController.deleteFile(path.join(__dirname, "../inputc.txt"));
+          deleteController.deleteFile(path.join(__dirname, "../c.py"));
         });
   }
 };
