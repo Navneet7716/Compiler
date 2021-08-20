@@ -83,7 +83,7 @@ function App() {
       result,
     };
 
-    console.log(mystate);
+    // console.log(mystate);
 
     axios
       .post(`${env.url}v1/submit`, mystate)
@@ -115,7 +115,7 @@ function App() {
   };
 
   const editorDidMount = (e) => {
-    console.log("EDITOR Loaded");
+    // console.log("EDITOR Loaded");
   };
 
   const onLangSelectHandler = (e) => {
@@ -319,16 +319,6 @@ function App() {
           <div className="column right">
             <h1>Output: 🧾</h1>
             <div className="">
-              {/* <TextField
-              fullwidth
-              id="outlined-basic"
-              variant="outlined"
-              value={result}
-              disabled={true}
-              style={{
-                height: "500px",
-              }}
-            /> */}
               <TextareaAutosize
                 style={{
                   width: "300px",
@@ -338,7 +328,7 @@ function App() {
                 disabled={true}
                 aria-label="minimum height"
                 minRows={9}
-                fullwidth
+                fullwidth="true"
                 placeholder="Minimum 3 rows"
               />
             </div>
