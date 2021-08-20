@@ -119,7 +119,7 @@ function App() {
       };
     }
 
-    console.log(mystate);
+    // console.log(mystate);
 
     axios
       .post(`${env.url}v1/submit`, mystate)
