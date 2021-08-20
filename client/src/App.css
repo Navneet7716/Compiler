@@ -1,4 +1,5 @@
 .fullBody {
+  font-family: "Open Sans", sans-serif;
   padding-top: 10px;
 
   background: rgb(2, 0, 36);
@@ -11,8 +12,12 @@
     rgba(0, 212, 255, 1) 100%
   );
   height: auto;
+  color: black;
+  /* text-shadow: -1px 1px 0 rgb(255, 255, 255), 1px 1px 0 rgb(255, 255, 255),
+    1px -1px 0 rgb(255, 255, 255), -1px -1px 0 rgb(255, 255, 255); */
 }
 .fullBodyDark {
+  font-family: "Open Sans", sans-serif;
   padding-top: 10px;
   background: rgb(2, 0, 36);
   background: linear-gradient(
@@ -26,6 +31,8 @@
   );
   height: auto;
   color: white;
+  /* text-shadow: -1px 1px 0 #000, 1px 1px 0 #000, 1px -1px 0 #000,
+    -1px -1px 0 #000; */
 }
 
 * {
@@ -61,6 +68,7 @@
 }
 
 textarea {
+  font-family: "Open Sans", sans-serif;
   margin-top: 10px;
   margin-left: 50px;
   width: 500px;
@@ -85,6 +93,21 @@ textarea {
 }
 
 textarea:focus {
+  font-family: "Open Sans", sans-serif;
   background: none repeat scroll 0 0 #ffffff;
   outline-width: 0;
+}
+
+.footer {
+  /* position: fixed; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100px;
+  background-color: rgb(0, 0, 0);
+  color: white;
+  text-align: center;
 }

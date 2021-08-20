@@ -1,5 +1,5 @@
 import "./App.css";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import MonacoEditor from "react-monaco-editor";
 import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
@@ -32,6 +32,26 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+function useKey(key, cb) {
+  const callbackRef = useRef(cb);
+
+  useEffect(() => {
+    callbackRef.current = cb;
+  });
+
+  useEffect(() => {
+    function handle(event) {
+      if (event.keyCode === 13 && event.shiftKey && event.ctrlKey) {
+        callbackRef.current(event);
+      }
+    }
+
+    document.addEventListener("keydown", handle);
+
+    return () => document.removeEventListener("keydown", handle);
+  }, [key]);
+}
+
 function App() {
   const [myCode, setCode] = useState(defaultCode.defaultCode.cpp);
   const [result, setResult] = useState("Submit Code to See Result");
@@ -39,6 +59,8 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [input, setinput] = useState("");
   const [darkmode, setDarkMode] = useState(false);
+
+  // const [theme, setTheme] = useState("");
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
@@ -79,6 +101,8 @@ function App() {
         setLoading(false);
       });
   };
+
+  useKey("Enter", onSubmitHandler);
 
   const onCodeChangeHandler = (newcode, e) => {
     localStorage.setItem("lang", lang);
@@ -125,14 +149,14 @@ function App() {
       <Container>
         {loading ? <LinearProgress /> : <></>}
 
-        <h1
+        {/* <h1
           style={{
             textAlign: "center",
           }}
           className=""
         >
           Welcome To Nav Code.
-        </h1>
+        </h1> */}
 
         <div
           className="row"
@@ -189,8 +213,40 @@ function App() {
                   marginLeft: "500px",
                   textAlign: "center",
                 }}
-                label={darkmode ? "Dark Mode 🌚" : "Light Mode 🌞"}
+                label={darkmode ? "🌚" : "🌞"}
               />
+
+              {/* <FormControl
+                variant="filled"
+                className={classes.formControl}
+                style={{
+                  color: darkmode ? "white" : "black",
+                  marginLeft: "500px",
+                  textAlign: "center",
+                }}
+              >
+                <InputLabel
+                  style={{ color: darkmode ? "white" : "black" }}
+                  id="demo-simple-select-outlined-label"
+                >
+                  Theme
+                </InputLabel>
+                <Select
+                  labelId="demo-simple-select-outlined-label"
+                  id="demo-simple-select-outlined"
+                  value={theme}
+                  style={{ color: darkmode ? "white" : "black" }}
+                  onChange={(e) => handleChange(e)}
+                  label="Theme"
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>
+                  <MenuItem value={"cpp"}>Dark</MenuItem>
+                  <MenuItem value={"c"}>Orange</MenuItem>
+                  <MenuItem value={"python"}>Purple</MenuItem>
+                </Select>
+              </FormControl> */}
 
               <Paper
                 elevation={3}
@@ -237,16 +293,20 @@ function App() {
                         margin: "10px",
                       }}
                     >
-                      Run
+                      Run (ctrl + shift + enter) 🏃🏻‍♂️
                     </Button>
                     <p>
-                      if the submission doesn't works please try{" "}
+                      If the submission doesn't works please try{" "}
                       <Button
                         color="secondary"
                         href="http://nav-compiler.herokuapp.com/"
                       >
                         here
                       </Button>
+                    </p>
+                    <p>
+                      Always make sure you are connected to the http version not
+                      the https version 😉
                     </p>
                   </>
                   // <button className="" onClick={onSubmitHandler}>
@@ -257,7 +317,7 @@ function App() {
             </div>
           </div>
           <div className="column right">
-            <h1>Output:</h1>
+            <h1>Output: 🧾</h1>
             <div className="">
               {/* <TextField
               fullwidth
@@ -288,7 +348,7 @@ function App() {
             // }}
             >
               <div className="row">
-                <h3 className="">Provide Input</h3>
+                <h1 className="">Input: 📝</h1>
               </div>
               <div>
                 <textarea
@@ -317,6 +377,16 @@ function App() {
           </div>
         </div>
       </Container>
+
+      <div className="footer">
+        <p
+        // style={{
+        //   marginTop: "40px",
+        // }}
+        >
+          Made with 💜 By Navneet Kumar Singh
+        </p>
+      </div>
     </div>
   );
 }
