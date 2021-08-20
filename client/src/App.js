@@ -60,6 +60,11 @@ function App() {
   const [input, setinput] = useState("");
   const [darkmode, setDarkMode] = useState(false);
 
+  const [javaCode, setJavaCode] = useState(defaultCode.defaultCode.java);
+  const [cppCode, setCppCode] = useState(defaultCode.defaultCode.cpp);
+  const [cCode, setCCode] = useState(defaultCode.defaultCode.c);
+  const [pythonCode, setPythonCode] = useState(defaultCode.defaultCode.python);
+
   // const [theme, setTheme] = useState("");
 
   const onSubmitHandler = async (e) => {
@@ -69,20 +74,52 @@ function App() {
       behavior: "smooth",
     });
     setLoading(true);
-    let mystate = {
-      code:
-        localStorage.getItem("code") != null
-          ? JSON.parse(localStorage.getItem("code"))
-          : myCode,
-      lang:
-        localStorage.getItem("lang") != null
-          ? localStorage.getItem("lang")
-          : lang,
-      input,
-      result,
-    };
 
-    // console.log(mystate);
+    let mystate;
+
+    if (lang === "java") {
+      mystate = {
+        code:
+          localStorage.getItem("javacode") != null
+            ? JSON.parse(localStorage.getItem("javacode"))
+            : javaCode,
+        lang: lang,
+        input,
+        result,
+      };
+    } else if (lang === "cpp") {
+      mystate = {
+        code:
+          localStorage.getItem("cppcode") != null
+            ? JSON.parse(localStorage.getItem("cppcode"))
+            : cppCode,
+        lang: lang,
+        input,
+        result,
+      };
+    } else if (lang === "c") {
+      mystate = {
+        code:
+          localStorage.getItem("ccode") != null
+            ? JSON.parse(localStorage.getItem("ccode"))
+            : cCode,
+        lang: lang,
+        input,
+        result,
+      };
+    } else {
+      mystate = {
+        code:
+          localStorage.getItem("pythoncode") != null
+            ? JSON.parse(localStorage.getItem("pythoncode"))
+            : pythonCode,
+        lang: lang,
+        input,
+        result,
+      };
+    }
+
+    console.log(mystate);
 
     axios
       .post(`${env.url}v1/submit`, mystate)
@@ -104,6 +141,32 @@ function App() {
   useKey("Enter", onSubmitHandler);
 
   const onCodeChangeHandler = (newcode, e) => {
+    if (lang === "java") {
+      localStorage.setItem("lang", lang);
+
+      localStorage.setItem("javacode", JSON.stringify(newcode));
+
+      setJavaCode(newcode);
+    } else if (lang === "cpp") {
+      localStorage.setItem("lang", lang);
+
+      localStorage.setItem("cppcode", JSON.stringify(newcode));
+
+      setCppCode(newcode);
+    } else if (lang === "c") {
+      localStorage.setItem("lang", lang);
+
+      localStorage.setItem("ccode", JSON.stringify(newcode));
+
+      setCCode(newcode);
+    } else {
+      localStorage.setItem("lang", lang);
+
+      localStorage.setItem("pythoncode", JSON.stringify(newcode));
+
+      setPythonCode(newcode);
+    }
+
     localStorage.setItem("lang", lang);
     localStorage.setItem("code", JSON.stringify(newcode));
 
@@ -114,18 +177,113 @@ function App() {
   };
 
   const editorDidMount = (e) => {
-    // console.log("EDITOR Loaded");
+    let h = JSON.parse(localStorage.getItem("theme"));
+
+    if (h == null) {
+      h = false;
+    }
+
+    setDarkMode(h);
   };
 
   const onLangSelectHandler = (e) => {
-    const langu = e.target.value;
-    localStorage.clear();
+    let langu = e.target.value;
+
+    localStorage.setItem("lang", langu);
+    // localStorage.removeItem("lang");
+    // localStorage.removeItem("code");
     setlang(langu);
-    setCode(defaultCode.defaultCode[langu]);
+
+    if (langu === "java") {
+      let l = localStorage.getItem("javacode");
+
+      if (l == null) {
+        setCode(defaultCode.defaultCode[langu]);
+        localStorage.setItem(
+          "code",
+          JSON.stringify(defaultCode.defaultCode[langu])
+        );
+      } else {
+        localStorage.setItem("code", JSON.stringify(l));
+
+        setCode(l);
+      }
+    } else if (langu === "cpp") {
+      let l = localStorage.getItem("cppcode");
+
+      if (l == null) {
+        setCode(defaultCode.defaultCode[langu]);
+        localStorage.setItem(
+          "code",
+          JSON.stringify(defaultCode.defaultCode[langu])
+        );
+      } else {
+        localStorage.setItem("code", JSON.stringify(l));
+
+        setCode(l);
+      }
+    } else if (langu === "c") {
+      let l = localStorage.getItem("ccode");
+
+      if (l == null) {
+        setCode(defaultCode.defaultCode[langu]);
+        localStorage.setItem(
+          "code",
+          JSON.stringify(defaultCode.defaultCode[langu])
+        );
+      } else {
+        localStorage.setItem("code", JSON.stringify(l));
+
+        setCode(l);
+      }
+    } else {
+      let l = localStorage.getItem("pythoncode");
+
+      if (l == null) {
+        setCode(defaultCode.defaultCode[langu]);
+        localStorage.setItem(
+          "code",
+          JSON.stringify(defaultCode.defaultCode[langu])
+        );
+      } else {
+        localStorage.setItem("code", JSON.stringify(l));
+
+        setCode(l);
+      }
+    }
   };
 
   const handleChange = (event) => {
+    localStorage.setItem("theme", !darkmode);
     setDarkMode(!darkmode);
+  };
+
+  const ReturnValue = () => {
+    let v;
+
+    if (lang === "java") {
+      v =
+        localStorage.getItem("javacode") != null
+          ? JSON.parse(localStorage.getItem("javacode"))
+          : javaCode;
+    } else if (lang === "cpp") {
+      v =
+        localStorage.getItem("cppcode") != null
+          ? JSON.parse(localStorage.getItem("cppcode"))
+          : cppCode;
+    } else if (lang === "c") {
+      v =
+        localStorage.getItem("ccode") != null
+          ? JSON.parse(localStorage.getItem("ccode"))
+          : cCode;
+    } else {
+      v =
+        localStorage.getItem("pythoncode") != null
+          ? JSON.parse(localStorage.getItem("pythoncode"))
+          : pythonCode;
+    }
+
+    return v;
   };
 
   const options = {
@@ -142,6 +300,18 @@ function App() {
   };
 
   const classes = useStyles();
+
+  useEffect(() => {
+    let l = JSON.parse(localStorage.getItem("theme"));
+
+    if (l == null) {
+      l = false;
+    }
+
+    setlang("cpp");
+
+    localStorage.setItem("theme", l);
+  }, []);
 
   return (
     <div className={darkmode ? "fullBodyDark" : "fullBody"}>
@@ -170,9 +340,6 @@ function App() {
                   onChange={(e) => onLangSelectHandler(e)}
                   label="Language"
                 >
-                  <MenuItem value="">
-                    <em>None</em>
-                  </MenuItem>
                   <MenuItem value={"cpp"}>C++</MenuItem>
                   <MenuItem value={"c"}>C</MenuItem>
                   <MenuItem value={"java"}>Java 11</MenuItem>
@@ -214,11 +381,7 @@ function App() {
                       : lang
                   }
                   theme={darkmode ? "vs-dark" : "vs-light"}
-                  value={
-                    localStorage.getItem("code") != null
-                      ? JSON.parse(localStorage.getItem("code"))
-                      : myCode
-                  }
+                  value={ReturnValue()}
                   options={options}
                   onChange={onCodeChangeHandler}
                   editorDidMount={editorDidMount}
@@ -304,7 +467,42 @@ function App() {
       </Container>
 
       <div className="footer">
-        <p>Made with 💜 By Navneet Kumar Singh</p>
+        <div
+          style={{
+            marginTop: "30px",
+          }}
+        >
+          <p>Made with 💜 By Navneet Kumar Singh</p>
+        </div>
+        <div
+          style={{
+            marginTop: "10px",
+          }}
+        >
+          <div>
+            📷
+            <a href="https://www.instagram.com/navneetkrsinghhh/">
+              Instagram{" "}
+            </a>{" "}
+          </div>
+          <div
+            style={{
+              marginTop: "10px",
+            }}
+          >
+            🐱‍🚀
+            <a href="https://github.com/Navneet7716"> Github </a>{" "}
+          </div>
+          <div
+            style={{
+              marginTop: "10px",
+              marginBottom: "10px",
+            }}
+          >
+            🎮
+            <a href="https://discord.gg/NW97apa"> Discord </a>{" "}
+          </div>
+        </div>
       </div>
     </div>
   );
