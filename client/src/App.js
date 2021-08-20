@@ -64,7 +64,6 @@ function App() {
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
-    alert("submit code");
     window.scrollTo({
       top: 0,
       behavior: "smooth",
@@ -306,7 +305,7 @@ function App() {
                     </p>
                     <p>
                       Always make sure you are connected to the http version not
-                      the https version 😉
+                      the https version 😉 (specially if you use brave browser!)
                     </p>
                   </>
                   // <button className="" onClick={onSubmitHandler}>
