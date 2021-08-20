@@ -148,24 +148,7 @@ function App() {
       <Container>
         {loading ? <LinearProgress /> : <></>}
 
-        {/* <h1
-          style={{
-            textAlign: "center",
-          }}
-          className=""
-        >
-          Welcome To Nav Code.
-        </h1> */}
-
-        <div
-          className="row"
-          // style={{
-          //   display: "flex",
-          //   flexWrap: "wrap",
-          //   justifyContent: "space-between",
-          //   flexDirection: "row",
-          // }}
-        >
+        <div className="row">
           <div className="column left">
             <div className="">
               <FormControl
@@ -192,6 +175,7 @@ function App() {
                   </MenuItem>
                   <MenuItem value={"cpp"}>C++</MenuItem>
                   <MenuItem value={"c"}>C</MenuItem>
+                  <MenuItem value={"java"}>Java 11</MenuItem>
                   <MenuItem value={"python"}>Python3</MenuItem>
                 </Select>
               </FormControl>
@@ -214,38 +198,6 @@ function App() {
                 }}
                 label={darkmode ? "🌚" : "🌞"}
               />
-
-              {/* <FormControl
-                variant="filled"
-                className={classes.formControl}
-                style={{
-                  color: darkmode ? "white" : "black",
-                  marginLeft: "500px",
-                  textAlign: "center",
-                }}
-              >
-                <InputLabel
-                  style={{ color: darkmode ? "white" : "black" }}
-                  id="demo-simple-select-outlined-label"
-                >
-                  Theme
-                </InputLabel>
-                <Select
-                  labelId="demo-simple-select-outlined-label"
-                  id="demo-simple-select-outlined"
-                  value={theme}
-                  style={{ color: darkmode ? "white" : "black" }}
-                  onChange={(e) => handleChange(e)}
-                  label="Theme"
-                >
-                  <MenuItem value="">
-                    <em>None</em>
-                  </MenuItem>
-                  <MenuItem value={"cpp"}>Dark</MenuItem>
-                  <MenuItem value={"c"}>Orange</MenuItem>
-                  <MenuItem value={"python"}>Purple</MenuItem>
-                </Select>
-              </FormControl> */}
 
               <Paper
                 elevation={3}
@@ -308,59 +260,43 @@ function App() {
                       the https version 😉 (specially if you use brave browser!)
                     </p>
                   </>
-                  // <button className="" onClick={onSubmitHandler}>
-                  //   Submit Code
-                  // </button>
                 )}
               </div>
             </div>
           </div>
           <div className="column right">
-            <h1>Output: 🧾</h1>
-            <div className="">
-              <TextareaAutosize
+            <h1>Input: 📝 </h1>
+
+            <div>
+              <textarea
+                placeholder="Give Input"
+                className="ui-autocomplete-input"
                 style={{
-                  width: "300px",
+                  width: "350px",
                   height: "30vh",
                 }}
-                value={result}
-                disabled={true}
-                aria-label="minimum height"
-                minRows={9}
-                fullwidth="true"
-                placeholder="Minimum 3 rows"
-              />
-            </div>
-            <div
-            // style={{
-            //   marginLeft: "500px",
-            // }}
-            >
-              <div className="row">
-                <h1 className="">Input: 📝</h1>
-              </div>
-              <div>
-                <textarea
-                  placeholder="Give Input"
-                  className="ui-autocomplete-input"
-                  style={{
-                    width: "300px",
-                    height: "60vh",
-                  }}
-                  type="text"
-                  value={input}
-                  onChange={onInputChangeHandler}
-                ></textarea>
-                {/* <textarea
-                style={{
-                  width: "300px",
-                  height: "200px",
-                }}
                 type="text"
-                id="input"
                 value={input}
                 onChange={onInputChangeHandler}
-              ></textarea> */}
+              ></textarea>
+            </div>
+            <div>
+              <div className="row">
+                <h1 className="">Output: 🧾</h1>
+              </div>
+              <div className="">
+                <TextareaAutosize
+                  style={{
+                    width: "350px",
+                    height: "60vh",
+                  }}
+                  value={result}
+                  disabled={true}
+                  aria-label="minimum height"
+                  minRows={9}
+                  fullwidth="true"
+                  placeholder="Minimum 3 rows"
+                />
               </div>
             </div>
           </div>
@@ -368,13 +304,7 @@ function App() {
       </Container>
 
       <div className="footer">
-        <p
-        // style={{
-        //   marginTop: "40px",
-        // }}
-        >
-          Made with 💜 By Navneet Kumar Singh
-        </p>
+        <p>Made with 💜 By Navneet Kumar Singh</p>
       </div>
     </div>
   );
