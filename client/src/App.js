@@ -366,6 +366,14 @@ function App() {
                 label={darkmode ? "🌚" : "🌞"}
               />
 
+              <div>
+                {lang === "java" ? (
+                  <p>Don't change the main "test" class name for java</p>
+                ) : (
+                  <></>
+                )}
+              </div>
+
               <Paper
                 elevation={3}
                 style={{
