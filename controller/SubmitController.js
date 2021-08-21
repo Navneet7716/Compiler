@@ -11,15 +11,15 @@ exports.HandleSubmit = async (req, res) => {
       return compiler
         .CplusplusRunner(code, input)
         .then((data) => {
-          console.log("SUCCESSFULL PROMISE " + data);
-          console.log("SENDING " + data);
+          console.log("successful compilation " + data);
+          console.log("sending " + data);
           res.json(data);
           deleteController.deleteFile(path.join(__dirname, "../inputb.txt"));
           deleteController.deleteFile(path.join(__dirname, "../b.cpp"));
           deleteController.deleteFile(path.join(__dirname, "../a.exe"));
         })
         .catch((err) => {
-          console.log("ERROR PROMISE " + err);
+          console.log("error:  " + err);
           deleteController.deleteFile(path.join(__dirname, "../inputb.txt"));
           deleteController.deleteFile(path.join(__dirname, "../b.cpp"));
         });
@@ -27,15 +27,15 @@ exports.HandleSubmit = async (req, res) => {
       return compiler
         .CRunner(code, input)
         .then((data) => {
-          console.log("SUCCESSFULL PROMISE " + data);
-          console.log("SENDING " + data);
+          console.log("successful compilation " + data);
+          console.log("sending " + data);
           res.json(data);
           deleteController.deleteFile(path.join(__dirname, "../inputa.txt"));
           deleteController.deleteFile(path.join(__dirname, "../a.c"));
           deleteController.deleteFile(path.join(__dirname, "../a.exe"));
         })
         .catch((err) => {
-          console.log("ERROR PROMISE " + err);
+          console.log("error: " + err);
           deleteController.deleteFile(path.join(__dirname, "../inputa.txt"));
           deleteController.deleteFile(path.join(__dirname, "../a.c"));
           deleteController.deleteFile(path.join(__dirname, "../a.exe"));
@@ -45,14 +45,14 @@ exports.HandleSubmit = async (req, res) => {
       return compiler
         .PythonRunner(code, input)
         .then((data) => {
-          console.log("SUCCESSFULL PROMISE " + data);
-          console.log("SENDING " + data);
+          console.log("Successful execute " + data);
+          console.log("sending " + data);
           res.json(data);
           deleteController.deleteFile(path.join(__dirname, "../inputc.txt"));
           deleteController.deleteFile(path.join(__dirname, "../c.py"));
         })
         .catch((err) => {
-          console.log("ERROR PROMISE " + err);
+          console.log("error:  " + err);
           deleteController.deleteFile(path.join(__dirname, "../inputc.txt"));
           deleteController.deleteFile(path.join(__dirname, "../c.py"));
         });

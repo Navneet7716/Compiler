@@ -19,7 +19,7 @@ exports.CplusplusRunner = async (code, input) => {
         });
 
         const filePath = path.join(__dirname, "../b.cpp");
-        console.log("FILE PATH >> " + filePath);
+        console.log("cpp file -> " + filePath);
 
         exec("sudo g++ " + filePath, (err, stdout, stderr) => {
           if (err) {
@@ -31,7 +31,7 @@ exports.CplusplusRunner = async (code, input) => {
             });
           }
 
-          console.log("SUCCESSFULLY COMPILED");
+          console.log("compilation done..");
           exec("sudo ./a.out < " + "inputb.txt", (err, stdout, stderr) => {
             if (err) {
               console.log("ERROR " + err);
@@ -42,7 +42,7 @@ exports.CplusplusRunner = async (code, input) => {
               });
             }
 
-            console.log("OUTPUT ", stdout);
+            console.log("output \n ", stdout);
             resolve({
               err: false,
               output: stdout,
@@ -51,7 +51,7 @@ exports.CplusplusRunner = async (code, input) => {
         });
       })
       .catch((e) => {
-        console.log("ERROR SAVE FILE " + e);
+        console.log("error saving file " + e);
         const err = {
           err: true,
           output: "Internal Server Error!",
@@ -73,7 +73,7 @@ exports.CRunner = async (code, input) => {
         });
 
         const filePath = path.join(__dirname, "../a.c");
-        console.log("FILE PATH >> " + filePath);
+        console.log("c file -> " + filePath);
 
         exec("gcc " + filePath, (err, stdout, stderr) => {
           if (err) {
@@ -85,10 +85,10 @@ exports.CRunner = async (code, input) => {
             });
           }
 
-          console.log("SUCCESSFULLY COMPILED");
+          console.log("Compilation done");
           exec("./a.out < " + "inputa.txt", (err, stdout, stderr) => {
             if (err) {
-              console.log("ERROR " + err);
+              console.log("error " + err);
               resolve({
                 err: true,
                 output: err,
@@ -96,7 +96,7 @@ exports.CRunner = async (code, input) => {
               });
             }
 
-            console.log("OUTPUT ", stdout);
+            console.log("output: \n ", stdout);
             resolve({
               err: false,
               output: stdout,
@@ -105,7 +105,7 @@ exports.CRunner = async (code, input) => {
         });
       })
       .catch(() => {
-        console.log("ERROR SAVE FILE" + saveFileRes);
+        console.log("error while saving the file \n" + saveFileRes);
         const err = {
           err: true,
           output: "Internal Server Error!",
@@ -131,7 +131,7 @@ exports.PythonRunner = async (code, input) => {
         });
 
         const filePath = path.join(__dirname, "../c.py");
-        console.log("FILE PATH >> " + filePath);
+        console.log("python file -> " + filePath);
         const inputPath = path.join(__dirname, "../inputc.txt");
         exec(
           "python3 " + filePath + " < " + inputPath,
@@ -152,7 +152,7 @@ exports.PythonRunner = async (code, input) => {
         );
       })
       .catch(() => {
-        console.log("ERROR SAVE FILE" + saveFileRes);
+        console.log("error saving python file \n" + saveFileRes);
         const err = {
           err: true,
           output: "Internal Server Error!",
@@ -164,13 +164,13 @@ exports.PythonRunner = async (code, input) => {
 
 const saveFile = async (name, data) => {
   return new Promise((resolve, reject) => {
-    console.log("SAVING FILES");
+    console.log("saving ...");
     fs.writeFile(name, data || null, function (err) {
       if (err) {
         console.log(err);
         reject();
       } else {
-        console.log("The file was saved!");
+        console.log("file saved");
         resolve();
       }
     });
