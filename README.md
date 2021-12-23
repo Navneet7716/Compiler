@@ -7,6 +7,8 @@ React.js, nodejs with Expressjs
 
 # Project URL :-
 http://nav-compiler.herokuapp.com/
+or
+http://index-react.s3-website-us-west-2.amazonaws.com/
 
 
 # Dark Theme :-
